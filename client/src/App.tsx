@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Button, Spin, List, Checkbox, Input } from "antd";
 import { Aptos } from "@aptos-labs/ts-sdk";
+
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
@@ -13,7 +14,7 @@ import {
 export const aptos = new Aptos();
 
 export const moduleAddress =
-  "6dfcf8d4afabfb700e3e02246262a7dca2c6410e3326ceb97af47607b0bd46b8";
+  "0x6dfcf8d4afabfb700e3e02246262a7dca2c6410e3326ceb97af47607b0bd46b8";
 
 type Task = {
   address: string;
@@ -119,6 +120,10 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    fetchList();
+  }, [account?.address]);
+
   const fetchList = async () => {
     if (!account) return [];
     try {
@@ -175,10 +180,6 @@ function App() {
       setTransactionInProgress(false);
     }
   };
-
-  useEffect(() => {
-    fetchList();
-  }, [account?.address]);
 
   return (
     <>
